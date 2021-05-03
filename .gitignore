@@ -27,3 +27,5 @@ modules/example/public/user_profile_types/.keep
 modules/example/public/views/layouts/.keep
 modules/example/public/views/pages/.keep
 modules/example/public/views/partials/.keep
+app/user_profile_types/.keep
+app/assets/fonts/.keep
