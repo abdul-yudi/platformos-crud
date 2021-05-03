@@ -1,0 +1,22 @@
+query get_data($id: ID) {
+  records(
+    filter: {
+      table: {
+        value: "crud"
+      }
+      id: {
+        value: $id
+      }
+    }
+    per_page: 100
+  ) {
+    results {
+      id
+      title: property(name: "title")
+      description: property(name: "description")
+      featured: property_upload(name: "featured"){
+        url
+      }
+    }
+  }
+}

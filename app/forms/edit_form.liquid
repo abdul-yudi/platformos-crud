@@ -1,0 +1,51 @@
+---
+name: edit_form
+resource: crud
+resource_owner: anyone
+redirect_to: /
+fields:
+  properties:
+    title:
+      validation:
+        presence: true
+    description:
+      validation:
+        presence: true
+    featured:
+      validation:
+        presence: true
+flash_notice: Record was successfully updated.
+---
+<h2>Edit</h2>
+
+{% form %}
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="name">Title:</label>
+      <input name="{{ form.fields.properties.title.name }}" value="{{ form.fields.properties.title.value }}" id="title" type="text" class="form-control">
+      {% if form.errors['properties.title'] %}
+        <p>{{ form.errors['properties.title'] }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="description">Description:</label>
+      <textarea name="{{ form.fields.properties.description.name }}" id="description" class="form-control">{{ form.fields.properties.description.value }}</textarea>
+      {% if form.errors['properties.description'] %}
+        <p>{{ form.errors['properties.description'] }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="name">Image:</label>
+      <input name="{{ form.fields.properties.featured.name }}" id="image" type="file" class="form-control">
+      {% if form.errors['properties.featured'] %}
+        <p>{{ form.errors['properties.featured'] }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-lg">Save</button>
+{% endform %}

@@ -1,0 +1,11 @@
+---
+name: delete_form
+resource: crud
+resource_owner: anyone
+redirect_to: /
+fields: {}
+flash_notice: Record was successfully deleted.
+---
+{% form method: "delete" %}
+  <button class="btn btn-link">Delete</button>
+{% endform %}

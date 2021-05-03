@@ -1,0 +1,8 @@
+---
+slug: detail
+---
+
+{%- assign id = context.params.slug2 -%}
+{%- graphql g = get_data", id: id -%}
+
+{% include 'show', record: g.records.results.first %}
