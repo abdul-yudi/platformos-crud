@@ -1,0 +1,15 @@
+mutation s3_get_presign_url(
+	$path: String!
+) {
+	presign: admin_assets_presign_urls(
+		paths: {
+			path: $path
+		}
+	) {
+		urls {
+			access_url
+			path
+			upload_url
+		}
+	}
+}
