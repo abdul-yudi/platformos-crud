@@ -46,3 +46,26 @@ email_notifications:
 
   <button class="btn btn-primary btn-lg">Save</button>
 {% endform %}
+
+{% graphql data %}
+  mutation s3_get_presign_url(
+    $path: String!
+  ) {
+    presign: admin_assets_presign_urls(
+      paths: {
+        path: $path
+      }
+    ) {
+      urls {
+        access_url
+        path
+        upload_url
+      }
+    }
+  }
+{% endgraphql %}
+<form action="{{ data.property_upload_presigned_url.upload_url }}">
+  {% for field in data.property_upload_presigned_url.upload_url_payload %}
+    <input type="hidden" value='{{ path }}'>
+  {% endfor %}
+</form>
