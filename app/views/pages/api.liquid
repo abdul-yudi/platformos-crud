@@ -1,0 +1,25 @@
+---
+slug: api/upload/get_presigned_url
+layout_name: ''
+method: post
+---
+
+
+{%- assign file_type 	= context.params.file_type | split: '/' -%}
+{%- assign file_ext 	= "." | append: context.params.file_extension -%}
+
+{%- assign upload_time 	= "-" | append: context.params.upload_time -%}
+
+{%- assign file_name 	= context.params.file_name | replace: file_ext, "" | downcase -%}
+{%- assign file_name 	= file_name | append: upload_time | slugify -%}
+{%- assign file_name	= file_name | append: file_ext -%}
+
+{%- assign upload_path 	= context.params.upload_path | append: "/" -%}
+{%- assign upload_path 	= upload_path | append: file_type[0] | append: "s/" -%}
+{%- assign upload_path 	= upload_path | append: file_name -%}
+
+{%- graphql data = 'assets_presign_url', 
+	path: upload_path
+-%}
+
+{{-data-}}

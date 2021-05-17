@@ -12,6 +12,7 @@ fields:
       validation:
         presence: true
     featured:
+    model_image:
 flash_notice: Record was successfully created.
 email_notifications:
 - notifications
@@ -39,33 +40,68 @@ email_notifications:
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-md-6">
-      <input name="{{ form.fields.properties.featured.name }}" id="image" type="hidden" />
+    <div class="form-group col-md-6 featured-image-wrap">
+      <label for="description">Image:</label>
+      <input type="file" id="featured-image" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6 img-wrap">
+      <input name="{{ form.fields.properties.model_image.name }}" id="image" type="hidden" />
     </div>
   </div>
 
   <button class="btn btn-primary btn-lg">Save</button>
 {% endform %}
 
-{% graphql data %}
-  mutation s3_get_presign_url(
-    $path: String!
-  ) {
-    presign: admin_assets_presign_urls(
-      paths: {
-        path: $path
-      }
-    ) {
-      urls {
-        access_url
-        path
-        upload_url
-      }
-    }
-  }
-{% endgraphql %}
-<form action="{{ data.property_upload_presigned_url.upload_url }}">
-  {% for field in data.property_upload_presigned_url.upload_url_payload %}
-    <input type="hidden" value='{{ path }}'>
-  {% endfor %}
-</form>
+{%- graphql data = 'assets_presign_url', 
+  path: "product_images"
+-%}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#featured-image').change(function() {
+      var theFile = this.files[0];
+      var ext = theFile.name.split('.');
+
+      ext = ext[ext.length - 1];
+
+      console.log(theFile);
+
+      $.ajax({
+        method: 'POST',
+        url: '/api/upload/get_presigned_url',
+        data: {
+          file_extension: ext,
+          file_name: theFile.name,
+          file_type: theFile.type,
+          upload_path: "product_uploads",
+          upload_time: new Date().getTime()
+        },
+        success: function(data) {
+          data = JSON.parse(data);
+          console.log(data);
+          sendFile(theFile, data);
+        }
+      });
+
+      function sendFile(file, data) {
+        $.ajax({
+          method: 'PUT',
+          url: data.presign.urls[0].upload_url,
+          data: file,
+          processData: false,
+          contentType: false,
+          complete: function(resp) {
+            $('.featured-image-wrap').append('<img src="' + data.presign.urls[0].access_url + '">');
+            $('#featured-image').val('');
+            $('#image').val(data.presign.urls[0].access_url);
+          }
+        }).done(function(resp) {
+          console.log(resp);
+        });
+      };
+    });
+  });
+</script>

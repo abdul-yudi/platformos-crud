@@ -17,6 +17,7 @@ query get_data($id: ID) {
       featured: property_upload(name: "featured"){
         url
       }
+      model_image: property(name: "model_image")
     }
   }
 }

@@ -1,5 +1,4 @@
 <h2>Recent Records</h2>
-
 {% if records == blank %}
   <p>There is no records yet. Use the form below to add some.</p>
 {% else %}
@@ -16,7 +15,7 @@
     {% for record in records %}
     <tr>
       <td>{{ record.id }}</td>
-      <td><img src="{{ record.featured.url }}" width="50" height="50"/></td>
+      <td><img src="{{ record.model_image }}" width="50" height="50"/></td>
       <td>{{ record.title }}</td>
       <td><a href="/detail/{{ record.id }}" class="btn btn-link">Details</a></td>
       <td><a href="/edit/{{ record.id }}" class="btn btn-link">Edit</a></td>
