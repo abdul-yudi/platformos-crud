@@ -54,7 +54,8 @@ flash_notice: Record was successfully updated.
     </div>
   </div>
 
-  <button class="btn btn-primary btn-lg">Save</button>
+  <a class="btn btn-warning mr-1" href="/">Cancel</a>
+  <button class="btn btn-primary">Save</button>
 {% endform %}
 {%- graphql data = 'assets_presign_url', 
   path: "product_images"
