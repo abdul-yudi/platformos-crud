@@ -54,7 +54,7 @@ flash_notice: Record was successfully updated.
     </div>
   </div>
 
-  <button class="btn btn-primary mr-2">Save</button>
+  <button class="btn btn-primary mr-2 btn-submit">Save</button>
   <a class="btn btn-warning" href="/">Cancel</a>
 {% endform %}
 {%- graphql data = 'assets_presign_url', 
@@ -69,6 +69,7 @@ flash_notice: Record was successfully updated.
       var ext = theFile.name.split('.');
 
       ext = ext[ext.length - 1];
+      $('.btn-submit').text('Uploading..').attr('disabled', 'disabled')
 
       console.log(theFile);
 
@@ -100,6 +101,7 @@ flash_notice: Record was successfully updated.
             $('#featured-image').val('');
             $('.image-preview').attr('src', data.presign.urls[0].access_url)
             $('#image').val(data.presign.urls[0].access_url);
+            $('.btn-submit').text('Save').removeAttr('disabled');
           }
         }).done(function(resp) {
           console.log(resp);

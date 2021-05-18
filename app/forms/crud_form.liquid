@@ -51,7 +51,7 @@ email_notifications:
     </div>
   </div>
 
-  <button class="btn btn-primary btn-lg">Save</button>
+  <button class="btn btn-primary btn-lg btn-submit">Save</button>
 {% endform %}
 
 {%- graphql data = 'assets_presign_url', 
@@ -66,6 +66,7 @@ email_notifications:
       var ext = theFile.name.split('.');
 
       ext = ext[ext.length - 1];
+      $('.btn-submit').text('Uploading..').attr('disabled', 'disabled');
 
       console.log(theFile);
 
@@ -94,9 +95,10 @@ email_notifications:
           processData: false,
           contentType: false,
           complete: function(resp) {
-            $('.featured-image-wrap').append('<img width="100" src="' + data.presign.urls[0].access_url + '">');
+            $('.featured-image-wrap').append('<img width="70" src="' + data.presign.urls[0].access_url + '">');
             $('#featured-image').val('');
             $('#image').val(data.presign.urls[0].access_url);
+            $('.btn-submit').text('Save').removeAttr('disabled');
           }
         }).done(function(resp) {
           console.log(resp);
