@@ -17,8 +17,8 @@
       <td>{{ record.id }}</td>
       <td><img src="{{ record.model_image }}" width="50"/></td>
       <td>{{ record.title }}</td>
-      <td><a href="/detail/{{ record.id }}" class="btn btn-link">Details</a></td>
-      <td><a href="/edit/{{ record.id }}" class="btn btn-link">Edit</a></td>
+      <td><a href="/detail/{{ record.id }}" class="btn btn-sm btn-primary">Details</a></td>
+      <td><a href="/edit/{{ record.id }}" class="btn btn-sm btn-success">Edit</a></td>
       <td>{% include_form "delete_form", id: record.id %}</td>
     </tr>
     {% endfor %}
@@ -29,3 +29,14 @@
 <hr class="hr">
 <br/>
 {% include_form 'crud_form' %}
+
+<script>
+  $(document).ready(function(){
+    $('.btn-delete').on('click', function(){
+      if (confirm("Are you sure?")) {
+        return true;
+      }
+      return false;
+    });
+  });
+</script>
