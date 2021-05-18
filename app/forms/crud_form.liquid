@@ -61,7 +61,7 @@ email_notifications:
 <script type="text/javascript">
   $(document).ready(function() {
 
-    $('#featured-image').change(function() {
+    $('#featured-image').on('change', function() {
       var theFile = this.files[0];
       var ext = theFile.name.split('.');
 
