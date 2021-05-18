@@ -18,7 +18,7 @@ email_notifications:
 - notifications
 ---
 
-<h2>Create records</h2>
+<h2>Create Records</h2>
 
 {% form %}
   <div class="row">
@@ -94,7 +94,7 @@ email_notifications:
           processData: false,
           contentType: false,
           complete: function(resp) {
-            $('.featured-image-wrap').append('<img src="' + data.presign.urls[0].access_url + '">');
+            $('.featured-image-wrap').append('<img width="100" src="' + data.presign.urls[0].access_url + '">');
             $('#featured-image').val('');
             $('#image').val(data.presign.urls[0].access_url);
           }
