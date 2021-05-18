@@ -30,7 +30,7 @@ flash_notice: Record was successfully updated.
   <div class="row">
     <div class="form-group col-md-6">
       <label for="description">Description</label>
-      <textarea name="{{ form.fields.properties.description.name }}" id="description" class="form-control">{{ form.fields.properties.description.value }}</textarea>
+      <textarea name="{{ form.fields.properties.description.name }}" id="description" class="form-control" rows="5">{{ form.fields.properties.description.value }}</textarea>
       {% if form.errors['properties.description'] %}
         <p>{{ form.errors['properties.description'] }}</p>
       {% endif %}
